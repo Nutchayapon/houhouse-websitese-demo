@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="th">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +23,7 @@
           <a href="#members">Members</a>
           <a href="#head">Head</a>
           <a href="#highlights">Traits</a>
-          <a href="#contact">Join</a>
+          <a href="#track">Tracks</a>
         </div>
       </nav>
     </header>
@@ -50,30 +50,10 @@
       <section class="section" id="members">
         <div class="section-heading">
           <p class="eyebrow">House Roster</p>
-          <h2>Meet the students carrying the Crimson standard</h2>
+          <h2>Meet the teacher / TA / Meet the member</h2>
         </div>
-        <div class="member-grid">
-          <article class="member-card">
-            <img src="assets/member-1.svg" alt="Arin portrait" />
-            <h3>Arin Valtor</h3>
-            <p>Captain</p>
-          </article>
-          <article class="member-card">
-            <img src="assets/member-2.svg" alt="Mira portrait" />
-            <h3>Mira Solene</h3>
-            <p>Dueling Strategist</p>
-          </article>
-          <article class="member-card">
-            <img src="assets/member-3.svg" alt="Tarin portrait" />
-            <h3>Tarin Vale</h3>
-            <p>House Archivist</p>
-          </article>
-          <article class="member-card">
-            <img src="assets/member-4.svg" alt="Luna portrait" />
-            <h3>Luna Maris</h3>
-            <p>First-Year Guide</p>
-          </article>
-        </div>
+        <div class="role-summary" aria-label="People count by role"></div>
+        <div class="member-grid" aria-live="polite"></div>
       </section>
 
       <section class="section head-section" id="head">
@@ -123,23 +103,46 @@
         </div>
       </section>
 
-      <section class="section contact-section" id="contact">
+      <section class="section track-section" id="track">
         <div>
-          <p class="eyebrow">Join the House</p>
-          <h2>Send an owl to Crimson Aurea</h2>
-          <p>Ask about house activities, student guidance, or how to join the next ceremonial gathering.</p>
-          <div class="social-links" aria-label="Social links">
-            <a href="https://example.com">Instagram</a>
-            <a href="https://example.com">Facebook</a>
-            <a href="mailto:house@example.com">Email</a>
-          </div>
+          <p class="eyebrow">Role Classification</p>
+          <h2>Discover Your Track</h2>
+          <p>
+            Try a quick mock aptitude classifier. Choose the work style that fits you best and the page will recommend a tech track.
+          </p>
         </div>
-        <form class="contact-form">
-          <label>Name <input type="text" name="name" placeholder="Your name" required /></label>
-          <label>Email <input type="email" name="email" placeholder="you@example.com" required /></label>
-          <label>Message <textarea name="message" rows="5" placeholder="Tell us about yourself" required></textarea></label>
-          <button type="submit">Send Message</button>
-          <p class="form-status" role="status"></p>
+        <form class="track-form">
+          <label>
+            Preferred challenge
+            <select name="challenge" required>
+              <option value="">Select one</option>
+              <option value="dev">Building useful systems</option>
+              <option value="creative">Designing visual experiences</option>
+              <option value="ml">Finding patterns in data</option>
+            </select>
+          </label>
+          <label>
+            Strongest skill
+            <select name="skill" required>
+              <option value="">Select one</option>
+              <option value="dev">Logic and problem solving</option>
+              <option value="creative">Storytelling and visual taste</option>
+              <option value="ml">Math, statistics, and experiments</option>
+            </select>
+          </label>
+          <label>
+            Favorite output
+            <select name="output" required>
+              <option value="">Select one</option>
+              <option value="dev">Apps, APIs, or tools</option>
+              <option value="creative">Branding, UI, or media</option>
+              <option value="ml">Models, predictions, or insights</option>
+            </select>
+          </label>
+          <button type="submit">Classify My Track</button>
+          <article class="track-result" role="status" aria-live="polite">
+            <p>Choose your answers to reveal a recommended track.</p>
+          </article>
         </form>
       </section>
     </main>

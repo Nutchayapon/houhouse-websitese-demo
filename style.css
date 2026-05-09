@@ -225,7 +225,7 @@ h3 {
 .section-heading p,
 .member-card p,
 .highlight p,
-.contact-section p {
+.track-section p {
   color: var(--muted);
 }
 
@@ -238,7 +238,7 @@ h3 {
 
 .primary-action,
 .secondary-action,
-.contact-form button {
+.track-form button {
   border-radius: 999px;
   cursor: pointer;
   display: inline-flex;
@@ -252,7 +252,7 @@ h3 {
 }
 
 .primary-action,
-.contact-form button {
+.track-form button {
   background: var(--gold);
   border: 1px solid var(--gold);
   color: #17100b;
@@ -264,13 +264,48 @@ h3 {
 }
 
 .primary-action:hover,
-.contact-form button:hover {
+.track-form button:hover {
   background: var(--gold-light);
 }
 
 .section-heading {
   margin-bottom: 36px;
   max-width: 760px;
+}
+
+.role-summary {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 28px;
+}
+
+.role-summary div {
+  background: rgba(8, 8, 20, 0.54);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.role-summary span,
+.role-badge,
+.result-label {
+  color: var(--gold-light);
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.role-summary strong {
+  color: var(--ink);
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  margin-top: 8px;
 }
 
 .member-grid,
@@ -282,7 +317,7 @@ h3 {
 
 .member-card,
 .highlight,
-.contact-form {
+.track-form {
   background: linear-gradient(180deg, rgba(33, 24, 38, 0.94), rgba(18, 20, 35, 0.96));
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -304,7 +339,16 @@ h3 {
 }
 
 .member-card h3 {
-  margin-top: 18px;
+  margin-top: 10px;
+}
+
+.member-meta {
+  padding-top: 18px;
+}
+
+.role-badge {
+  color: var(--gold);
+  margin-bottom: 8px;
 }
 
 .head-section {
@@ -366,7 +410,7 @@ h3 {
   margin-bottom: 58px;
 }
 
-.contact-section {
+.track-section {
   display: grid;
   gap: 42px;
   grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
@@ -391,13 +435,13 @@ h3 {
   text-transform: uppercase;
 }
 
-.contact-form {
+.track-form {
   display: grid;
   gap: 16px;
   padding: 24px;
 }
 
-.contact-form label {
+.track-form label {
   color: var(--gold-light);
   display: grid;
   font-family: Arial, Helvetica, sans-serif;
@@ -408,8 +452,8 @@ h3 {
   text-transform: uppercase;
 }
 
-.contact-form input,
-.contact-form textarea {
+.track-form select {
+  appearance: none;
   background: rgba(8, 8, 20, 0.72);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -419,16 +463,22 @@ h3 {
   width: 100%;
 }
 
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-  color: rgba(248, 239, 217, 0.55);
+.track-result {
+  background: rgba(8, 8, 20, 0.46);
+  border: 1px solid rgba(214, 168, 75, 0.18);
+  border-radius: 8px;
+  min-height: 150px;
+  padding: 20px;
 }
 
-.form-status {
-  color: var(--gold-light);
-  font-weight: 800;
-  margin: 0;
-  min-height: 1.4em;
+.track-result h3 {
+  color: var(--ink);
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.track-result p:last-child {
+  margin-bottom: 0;
 }
 
 @media (max-width: 860px) {
@@ -458,7 +508,7 @@ h3 {
 
   .hero,
   .head-section,
-  .contact-section {
+  .track-section {
     grid-template-columns: 1fr;
   }
 
@@ -468,6 +518,7 @@ h3 {
 
   .member-grid,
   .highlight-grid,
+  .role-summary,
   .profile-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -485,6 +536,7 @@ h3 {
 
   .member-grid,
   .highlight-grid,
+  .role-summary,
   .profile-list {
     grid-template-columns: 1fr;
   }
