@@ -33,6 +33,6 @@ sections.forEach((section) => observer.observe(section));
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  statusText.textContent = "ส่งข้อความเรียบร้อยแล้ว ขอบคุณที่ติดต่อ Crimson Aurea";
+  statusText.textContent = "Your message has been sent to Crimson Aurea.";
   form.reset();
 });
