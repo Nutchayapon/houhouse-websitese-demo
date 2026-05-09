@@ -3,9 +3,17 @@ const navLinks = document.querySelector(".nav-links");
 const menuLinks = document.querySelectorAll(".nav-links a");
 const sections = document.querySelectorAll("main section");
 const roleSummary = document.querySelector(".role-summary");
+const roleDetailHeading = document.querySelector(".role-detail-heading");
 const memberGrid = document.querySelector(".member-grid");
 const trackForm = document.querySelector(".track-form");
 const trackResult = document.querySelector(".track-result");
+const hero = document.querySelector(".hero");
+const mascot = document.querySelector(".draggable-mascot");
+
+let activeRole = "Teacher";
+let isDraggingMascot = false;
+let mascotOffsetX = 0;
+let mascotOffsetY = 0;
 
 const people = [
   {
@@ -44,6 +52,24 @@ const people = [
     alt: "Luna Maris portrait",
   },
 ];
+
+const roleContent = {
+  Teacher: {
+    plural: "Teachers",
+    icon: "★",
+    subtitle: "Lead lessons, guide projects, and set the learning direction.",
+  },
+  TA: {
+    plural: "TAs",
+    icon: "✦",
+    subtitle: "Support workshops, reviews, and hands-on practice sessions.",
+  },
+  Member: {
+    plural: "Members",
+    icon: "◆",
+    subtitle: "Explore tracks, build projects, and grow with the team.",
+  },
+};
 
 const trackDetails = {
   dev: {
@@ -98,13 +124,29 @@ function renderPeople() {
     { Teacher: 0, TA: 0, Member: 0 }
   );
 
-  roleSummary.innerHTML = `
-    <div><span>Teachers</span><strong>${counts.Teacher}</strong></div>
-    <div><span>TAs</span><strong>${counts.TA}</strong></div>
-    <div><span>Members</span><strong>${counts.Member}</strong></div>
+  roleSummary.innerHTML = Object.entries(roleContent)
+    .map(
+      ([role, content]) => `
+        <button class="role-card ${role === activeRole ? "active" : ""}" type="button" data-role="${role}">
+          <span class="role-icon" aria-hidden="true">${content.icon}</span>
+          <span>
+            <strong>${content.plural} (${counts[role]})</strong>
+            <small>${content.subtitle}</small>
+          </span>
+        </button>
+      `
+    )
+    .join("");
+
+  const selectedPeople = people.filter((person) => person.role === activeRole);
+  const selectedContent = roleContent[activeRole];
+
+  roleDetailHeading.innerHTML = `
+    <span>${selectedContent.plural} detail view</span>
+    <p>Showing ${selectedPeople.length} profile${selectedPeople.length === 1 ? "" : "s"} for the selected role.</p>
   `;
 
-  memberGrid.innerHTML = people
+  memberGrid.innerHTML = selectedPeople
     .map(
       (person) => `
         <article class="member-card" data-role="${person.role}">
@@ -118,6 +160,14 @@ function renderPeople() {
       `
     )
     .join("");
+
+  document.querySelectorAll(".role-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      activeRole = card.dataset.role;
+      renderPeople();
+      roleDetailHeading.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  });
 }
 
 function classifyTrack(formData) {
@@ -143,6 +193,44 @@ trackForm.addEventListener("submit", (event) => {
     <p>${track.summary}</p>
     <p>${track.nextStep}</p>
   `;
+});
+
+function setMascotPosition(x, y) {
+  const heroRect = hero.getBoundingClientRect();
+  const mascotRect = mascot.getBoundingClientRect();
+  const maxX = heroRect.width - mascotRect.width;
+  const maxY = heroRect.height - mascotRect.height;
+  const nextX = Math.min(Math.max(x, 0), maxX);
+  const nextY = Math.min(Math.max(y, 0), maxY);
+
+  mascot.style.left = `${nextX}px`;
+  mascot.style.top = `${nextY}px`;
+  mascot.style.right = "auto";
+  mascot.style.bottom = "auto";
+}
+
+mascot.addEventListener("mousedown", (event) => {
+  const heroRect = hero.getBoundingClientRect();
+  const mascotRect = mascot.getBoundingClientRect();
+
+  isDraggingMascot = true;
+  mascotOffsetX = event.clientX - mascotRect.left;
+  mascotOffsetY = event.clientY - mascotRect.top;
+  mascot.classList.add("dragging");
+  setMascotPosition(mascotRect.left - heroRect.left, mascotRect.top - heroRect.top);
+  event.preventDefault();
+});
+
+window.addEventListener("mousemove", (event) => {
+  if (!isDraggingMascot) return;
+
+  const heroRect = hero.getBoundingClientRect();
+  setMascotPosition(event.clientX - heroRect.left - mascotOffsetX, event.clientY - heroRect.top - mascotOffsetY);
+});
+
+window.addEventListener("mouseup", () => {
+  isDraggingMascot = false;
+  mascot.classList.remove("dragging");
 });
 
 renderPeople();
